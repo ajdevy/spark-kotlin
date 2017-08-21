@@ -1,4 +1,4 @@
-package app.view
+package app.todo.view
 
 abstract class HtmlView {
 
