@@ -1,6 +1,6 @@
 package app.todo.view
 
-class MainView(private val todoListView: TodoListView) : HtmlView() {
+class MainTodoView(private val todoListView: TodoListView) : HtmlView() {
 
     override fun getHtml(): String =
             """

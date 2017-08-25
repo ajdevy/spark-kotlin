@@ -5,7 +5,7 @@ import app.todo.model.Status
 import app.todo.model.Todo
 import app.todo.model.TodoDao
 import app.todo.view.EditTodoView
-import app.todo.view.MainView
+import app.todo.view.MainTodoView
 import app.todo.view.TodoListView
 import spark.Request
 import spark.Response
@@ -22,7 +22,7 @@ fun startTodoApi() {
             if ("true" == request.queryParams("ic-request")) {
                 renderTodoListView(request)
             } else {
-                MainView(renderTodoListView(request))
+                MainTodoView(renderTodoListView(request))
             }
         }
         Spark.post("/todos") { request, _ ->

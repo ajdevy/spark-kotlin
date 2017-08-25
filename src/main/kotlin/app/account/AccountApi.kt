@@ -1,35 +1,35 @@
-package app.user
+package app.account
 
 import app.logger
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import spark.Spark
 
-fun startUserApi() {
+fun startAccountApi() {
 
-    val userDao = UserDao()
+    val accountDao = AccountDao()
 
-    Spark.path("/users") {
+    Spark.path("/accounts") {
 
         Spark.get("") { _, _ ->
-            jacksonObjectMapper().writeValueAsString(userDao.users)
+            jacksonObjectMapper().writeValueAsString(accountDao.accounts)
         }
 
         Spark.get("/:id") { req, _ ->
-            userDao.findById(req.params("id").toInt())
+            accountDao.findById(req.params("id").toInt())
         }
 
         Spark.get("/email/:email") { req, _ ->
-            userDao.findByEmail(req.params("email"))
+            accountDao.findByEmail(req.params("email"))
         }
 
         Spark.post("/create") { req, res ->
-            userDao.save(name = req.queryParams("name"), email = req.queryParams("email"))
+            accountDao.save(name = req.queryParams("name"), email = req.queryParams("email"))
             res.status(201)
             "ok"
         }
 
         Spark.patch("/update/:id") { req, _ ->
-            userDao.update(
+            accountDao.update(
                     id = req.params("id").toInt(),
                     name = req.queryParams("name"),
                     email = req.queryParams("email")
@@ -38,11 +38,10 @@ fun startUserApi() {
         }
 
         Spark.delete("/delete/:id") { req, _ ->
-            userDao.delete(req.params("id").toInt())
+            accountDao.delete(req.params("id").toInt())
             "ok"
         }
-
     }
 
-    userDao.users.forEach { logger.info(it.toString()) }
+    accountDao.accounts.forEach { logger.info(it.toString()) }
 }
